@@ -2,6 +2,7 @@ module ConcertoOmniauthShibboleth
 
   require 'omniauth'
   require 'omniauth-shibboleth'
+  require 'concerto_identity'
 
   class Engine < ::Rails::Engine
     isolate_namespace ConcertoOmniauthShibboleth
@@ -19,6 +20,9 @@ module ConcertoOmniauthShibboleth
         # View hook to override Devise sign in links in the main application
         add_view_hook "ApplicationController", :signin_hook,
                       :partial => "concerto_omniauth_shibboleth/links"
+
+        # Add (external identity)-based lookup to User model
+        extend_model(User, ConcertoOmniauthShibboleth::Concerns::User)
 
       end # plugin_info intializer
     end # plugin_info
