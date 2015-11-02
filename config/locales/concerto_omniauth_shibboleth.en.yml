@@ -1,0 +1,7 @@
+en:
+  concerto_omniauth_shibboleth:
+    links:
+      sign_in: 'Sign in'
+    omniauth_callback:
+      authenticate:
+        signed_in: 'Signed in through Shibboleth'
