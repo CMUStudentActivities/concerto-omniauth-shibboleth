@@ -11,10 +11,17 @@ module Concerns::User
         external_id: auth.uid ).first_or_create
 
       identity.user || identity.build_user( password: Devise.friendly_token.first(20) )
+
       identity.user.assign_attributes( first_name: auth.info.first_name,
                                        last_name: auth.info.last_name,
                                        email: auth.info.mail )
-      identity.save!
+
+      if identity.user.persisted?
+        identity.user.save
+      else
+        identity.save!
+      end
+
       return identity.user
     end # from_omniauth
 
