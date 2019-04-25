@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    concerto_omniauth_shibboleth (0.0.3)
+    concerto_omniauth_shibboleth (1.0.0)
       concerto_identity (~> 0)
       omniauth-shibboleth (~> 1)
 
