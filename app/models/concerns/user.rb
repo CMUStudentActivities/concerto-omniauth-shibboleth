@@ -11,10 +11,14 @@ module Concerns::User
         external_id: auth.uid ).first_or_create
 
       identity.user || identity.build_user( password: Devise.friendly_token.first(20) )
+      
+      first_name = auth.info.first_name.blank? ? 'Andrew' : auth.info.first_name
+      last_name = auth.info.last_name.blank? ? 'Carnegie' : auth.info.last_name
+      mail = auth.info.mail.blank? ? auth.uid : auth.info.mail
 
-      identity.user.assign_attributes( first_name: auth.info.first_name,
-                                       last_name: auth.info.last_name,
-                                       email: auth.info.mail )
+      identity.user.assign_attributes( first_name: first_name,
+                                       last_name: last_name,
+                                       email: mail )
 
       if identity.user.persisted?
         identity.user.save
